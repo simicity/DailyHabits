@@ -71,11 +71,7 @@ async function addItem() {
     item[key] = value;
   }
   item["check"] = "bi-check-square";
-  if (localStorage.getItem("items") == null) {
-    item["id"] = 0;
-  } else {
-    item["id"] = Array.from(JSON.parse(localStorage.getItem("items"))).length;
-  }
+  item["id"] = Date.now();
 
   // Add item to local storage
   localStorage.setItem("items", JSON.stringify([...JSON.parse(localStorage.getItem("items") || "[]"), item]));
@@ -244,11 +240,8 @@ function toggleCheck(event) {
     if (item["id"] == container.id.replace("item-", "")) {
       if (item["check"] == "bi-check-square") {
         item["check"] = "bi-check-square-fill";
-        console.log("1");
       } else {
         item["check"] = "bi-check-square";
-
-        console.log("2");
       }
       event.innerHTML = `<i class=${item.check}></i>`;
     }
