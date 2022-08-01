@@ -1,8 +1,20 @@
 window.onload = loadItems;
 
 function loadItems() {
-  if (localStorage.getItem("items") == null) return;
+  if (localStorage.getItem("items") == null) {
+    let item = {
+      "id": Date.now(),
+      "title": "Google News",
+      "url": "https://news.google.com/home?hl=en-US&gl=US&ceid=US:en",
+      "note": "Check top stories",
+      "check": "bi-check-square"
+    }
+
+    // Add item to local storage
+    localStorage.setItem("items", JSON.stringify([item]));
+  }
   const items = Array.from(JSON.parse(localStorage.getItem("items")));
+  console.log(items);
   items.forEach(item => {
     document.getElementById("item-list").innerHTML += `
       <div class="d-flex justify-content-between" id="item-${item.id}">
@@ -62,7 +74,7 @@ function loadItems() {
   });
 }
 
-async function addItem() {
+function addItem() {
   let container = document.getElementById("add-item");
   const form = document.getElementById("add-form");
   const formData = new FormData(form);
